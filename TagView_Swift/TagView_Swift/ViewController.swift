@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         tagView.titlePlace = .right
+        tagView.showIndicatorAt(.right)
     }
 
     let titles: [String] = ["A", "BB", "CCC", "DDDD", "EEEEE", ]
