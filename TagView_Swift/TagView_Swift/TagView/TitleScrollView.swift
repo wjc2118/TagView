@@ -72,6 +72,35 @@ class TitleScrollView: UIScrollView {
         }
     }
     
+    func layoutLineIndicator() {
+        
+        guard let place = lineIndicatorPlace else { return }
+        
+        let selectedTagBtnTitleSize = (selectedBtn.title(for: .selected) as NSString?)?.size(attributes: [NSFontAttributeName: selectedBtn.titleLabel?.font as Any]) ?? CGSize.zero
+        let selectedTagBtnImageSize = selectedBtn.image(for: .selected)?.size ?? CGSize.zero
+        
+        lineIndicator.backgroundColor = selectedBtn.titleColor(for: .selected)
+        
+        switch layoutDirection {
+        case .horizontal:
+            lineIndicator.frame.size = CGSize(width: selectedTagBtnTitleSize.width + selectedTagBtnImageSize.width, height: LINE_INDICATOR_MINLENGTH)
+            lineIndicator.center.x = selectedBtn.center.x
+            if place == .top {
+                lineIndicator.frame.origin.y = 0
+            } else {  // as .bottom
+                lineIndicator.frame.origin.y = totalSize.height - LINE_INDICATOR_MINLENGTH
+            }
+        case .vertical:
+            lineIndicator.frame.size = CGSize(width: LINE_INDICATOR_MINLENGTH, height: max(selectedTagBtnTitleSize.height , selectedTagBtnImageSize.height))
+            lineIndicator.center.y = selectedBtn.center.y
+            if place == .left {
+                lineIndicator.frame.origin.x = 0
+            } else {  // as .right
+                lineIndicator.frame.origin.x = totalSize.width - LINE_INDICATOR_MINLENGTH
+            }
+        }
+    }
+    
     func adjustContentOffset() {
         switch layoutDirection {
         case .horizontal:
@@ -130,35 +159,6 @@ class TitleScrollView: UIScrollView {
         let v = UIView()
         return v
     }()
-    
-    /*private*/ func layoutLineIndicator() {
-        
-        guard let place = lineIndicatorPlace else { return }
-        
-        let selectedTagBtnTitleSize = (selectedBtn.title(for: .selected) as NSString?)?.size(attributes: [NSFontAttributeName: selectedBtn.titleLabel?.font as Any]) ?? CGSize.zero
-        let selectedTagBtnImageSize = selectedBtn.image(for: .selected)?.size ?? CGSize.zero
-        
-        lineIndicator.backgroundColor = selectedBtn.titleColor(for: .selected)
-        
-        switch layoutDirection {
-        case .horizontal:
-            lineIndicator.frame.size = CGSize(width: selectedTagBtnTitleSize.width + selectedTagBtnImageSize.width, height: LINE_INDICATOR_MINLENGTH)
-            lineIndicator.center.x = selectedBtn.center.x
-            if place == .top {
-                lineIndicator.frame.origin.y = 0
-            } else {  // as .bottom
-                lineIndicator.frame.origin.y = totalSize.height - LINE_INDICATOR_MINLENGTH
-            }
-        case .vertical:
-            lineIndicator.frame.size = CGSize(width: LINE_INDICATOR_MINLENGTH, height: selectedTagBtnTitleSize.height + selectedTagBtnImageSize.height)
-            lineIndicator.center.y = selectedBtn.center.y
-            if place == .left {
-                lineIndicator.frame.origin.x = 0
-            } else {  // as .right
-                lineIndicator.frame.origin.x = totalSize.width - LINE_INDICATOR_MINLENGTH
-            }
-        }
-    }
     
     private func reloadData() {
         
