@@ -35,6 +35,18 @@ class ViewController: UIViewController {
         tagView.titlePlace = .right
         tagView.showIndicatorAt(.right)
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if size.width > size.height {
+            tagView.titlePlace = .left
+            tagView.showIndicatorAt(.right)
+        } else {
+            tagView.titlePlace = .top
+            tagView.showIndicatorAt(.bottom)
+        }
+    }
 
     let titles: [String] = ["A", "BB", "CCC", "DDDD", "EEEEE", ]
 

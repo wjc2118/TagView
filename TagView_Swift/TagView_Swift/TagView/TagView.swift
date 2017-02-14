@@ -127,6 +127,7 @@ public class TagView: UIView {
             contentView.frame = CGRect(x: 0, y: 0, width: frame.width - titleView.totalSize.width, height: frame.height)
             contentView.setContentOffset(CGPoint(x: 0, y: contentView.frame.height * CGFloat(titleView.selectedIndex)), animated: false)
         }
+        titleView.adjustContentOffset()
     }
     
     // MARK: - private
